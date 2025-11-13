@@ -1,15 +1,16 @@
 name: Collect Government Websites
 on:
   schedule:
-    - cron: "0 0 * * *"   # runs daily at midnight
-  workflow_dispatch:
+    - cron: "0 0 * * *"   # Runs every day at 12:00 AM
+  workflow_dispatch:      # Allows manual run
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -26,5 +27,5 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git add gov_links.txt
-          git commit -m "Updated govt links" || exit 0
+          git commit -m "Updated government links" || echo "No changes"
           git push
